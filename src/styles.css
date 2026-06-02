@@ -1,0 +1,280 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: sans-serif;
+
+    background: radial-gradient(
+        circle at center,
+        #1a1a1a 0%,
+        #000000 100%
+    );
+    color: white;
+}
+
+.container {
+    padding: 40px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 100vh;
+    gap: 20px;
+}
+
+/* ---------- HEADER ---------- */
+.header {
+    font-weight: bold;
+    margin-bottom: 15;
+}
+
+/* ---------- BUTTONS ---------- */
+
+.actions {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 40px;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    padding: 10px 14px;
+    border-radius: 10px;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    border: none;
+    cursor: pointer;
+
+    transition: all 0.2s ease;
+
+    color: white;
+}
+
+.btn-deal { background: #1f8f3a; }
+.btn-deal:hover { background: #25a846; }
+
+.btn-flip { background: #2d6cdf; }
+.btn-flip:hover { background: #3c7df0; }
+
+.btn-flip-back { background: #7a4df0; }
+.btn-flip-back:hover { background: #8b63ff; }
+
+.btn-danger { background: #d64545; }
+.btn-danger:hover { background: #ff5a5a; }
+
+.btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.btn:active {
+    transform: scale(0.96);
+}
+
+/* ---------- PLAYER SEAT ---------- */
+
+.player-seat {
+    flex-direction: row;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+
+    min-height: 220px;
+    width: 100%;
+    max-width: 900px;
+
+    padding: 20px;
+
+    border-radius: 16px;
+
+    background: rgba(0, 128, 0, 0.6);
+
+    border: 2px solid rgba(255, 255, 255, 0.1);
+
+    overflow-x: auto;
+
+    backdrop-filter: blur(6px);
+}
+
+.table-title {
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: 600;
+    opacity: 0.9;
+}
+
+.empty-state {
+    text-align: center;
+    color: rgba(255, 255, 255, 0.8);
+
+    padding: 40px;
+
+    border: 2px dashed rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+
+    width: 100%;
+    max-width: 900px;
+}
+
+.empty-state h3 {
+    margin-bottom: 8px;
+    color: #ffffff;
+}
+
+/* ---------- CARD STACK ---------- */
+
+.card-stack {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* ---------- CARD WRAPPER (FIXED CORE) ---------- */
+
+.card-wrapper {
+    position: relative;
+    flex-shrink: 0;
+    cursor: pointer;
+
+    border-radius: 12px;
+
+    box-shadow:
+        0 8px 16px rgba(0, 0, 0, 0.35),
+        0 2px 4px rgba(0, 0, 0, 0.2);
+
+    transition: box-shadow 0.2s ease;
+
+    transform: translateY(0); /* IMPORTANT: reset baseline */
+}
+
+/* Hover ONLY when idle */
+.card-wrapper:hover:not(.deal-animation):not(.slide-out) {
+    transform: translateY(-6px);
+}
+
+/* Selected ONLY when idle */
+.card-wrapper.selected:not(.deal-animation):not(.slide-out) {
+    transform: translateY(-10px);
+}
+
+/* ---------- CARD INNER (FLIP ONLY) ---------- */
+
+.card-inner {
+    width: 120px;
+    height: 180px;
+
+    position: relative;
+
+    transform-style: preserve-3d;
+    transition: transform 600ms ease;
+}
+
+.card-inner.flipped {
+    transform: rotateY(180deg);
+}
+
+/* ---------- CARD FACES ---------- */
+
+.card-face {
+    position: absolute;
+
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 12px;
+
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+.card-front {
+    background: white;
+    color: #000;
+    border: 2px solid #333;
+    transform: rotateY(180deg);
+}
+
+.card-back {
+    background: royalblue;
+    color: white;
+}
+
+/* ---------- DEAL ANIMATION ---------- */
+
+.deal-animation {
+    animation: deal-in 400ms ease-out;
+}
+
+@keyframes deal-in {
+    from {
+        transform: translateX(-200px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* ---------- SLIDE OUT ---------- */
+
+.slide-out {
+    animation: slide-out 500ms ease forwards;
+}
+
+@keyframes slide-out {
+    from {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateX(300px);
+    }
+}
+
+/* ---------- SELECTED LABEL ---------- */
+
+.selected-label {
+    margin-top: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #ffd700;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.selected-label .arrow {
+    animation: bounce-down 0.8s infinite;
+}
+
+.selected-label .text {
+    margin-top: 2px;
+    opacity: 0.9;
+}
+
+@keyframes bounce-down {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(3px);
+    }
+}
