@@ -5,7 +5,7 @@ type Props = {
     selected: boolean
     onSelect: () => void
     onMarkDealt: (id: string) => void
-    onRemove: (id: string) => void
+    onRemove: (id: any) => void
 }
 
 export default function PlayingCard({
