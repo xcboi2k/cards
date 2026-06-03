@@ -25,7 +25,6 @@ function App() {
   const [selectedCardId, setSelectedCardId] =
       useState<string | null>(null)
 
-  // 🃏 DEAL (LEFT → RIGHT fill)
   const dealCard = () => {
       if (cards.length >= TOTAL_SLOTS) return
 
@@ -41,7 +40,6 @@ function App() {
       ])
   }
 
-  // 🎯 get selected / last card
   const getTargetCard = (cards: Card[]) => {
       const targetId =
           selectedCardId ??
@@ -63,7 +61,6 @@ function App() {
 
   const isActionDisabled = !targetCard
 
-  // 🔄 FLIP FRONT
   const flipFront = () => {
       setCards(prev => {
           const targetId =
@@ -80,7 +77,6 @@ function App() {
       })
   }
 
-  // 🔄 FLIP BACK
   const flipBack = () => {
       setCards(prev => {
           const targetId =
@@ -97,7 +93,6 @@ function App() {
       })
   }
 
-  // 🗑 slide OUT RIGHTMOST
   const slideOut = () => {
       setCards(prev => {
           if (!prev.length) return prev
@@ -112,14 +107,12 @@ function App() {
       })
   }
 
-  // ❌ remove after animation
   const removeCard = (id: string) => {
       setCards(prev =>
           prev.filter(card => card.id !== id)
       )
   }
 
-  // 🟡 mark dealt finished
   const markDealt = (id: string) => {
       setCards(prev =>
           prev.map(card =>
@@ -130,14 +123,12 @@ function App() {
       )
   }
 
-  // 🎯 select toggle
   const selectCard = (id: string) => {
       setSelectedCardId(prev =>
           prev === id ? null : id
       )
   }
 
-  // 🧩 SLOT SYSTEM (5 fixed positions)
   const slots = Array.from(
       { length: TOTAL_SLOTS },
       (_, i) => cards[i] ?? null
