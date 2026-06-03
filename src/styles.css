@@ -102,7 +102,7 @@ body {
 
     border: 2px solid rgba(255, 255, 255, 0.1);
 
-    overflow-x: auto;
+    overflow: hidden;
 
     backdrop-filter: blur(6px);
 }
@@ -171,8 +171,8 @@ body {
 /* ---------- CARD INNER (FLIP ONLY) ---------- */
 
 .card-inner {
-    width: 120px;
-    height: 180px;
+    width: clamp(72px, 18vw, 120px);
+    height: clamp(108px, 27vw, 180px);
 
     position: relative;
 
@@ -215,11 +215,8 @@ body {
 }
 
 .card-slot {
-    width: 120px;
-    height: 180px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    width: min(120px, calc((100vw - 80px) / 5));
+    aspect-ratio: 2 / 3;
 }
 
 .dotted-card {
@@ -235,6 +232,159 @@ body {
 
     color: rgba(255, 255, 255, 0.4);
     font-size: 12px;
+}
+
+/* =====================================
+   TABLET
+===================================== */
+
+@media (max-width: 768px) {
+    .container {
+        padding: 24px 16px;
+        min-height: 100dvh;
+    }
+
+    .header {
+        font-size: 1.5rem;
+        text-align: center;
+    }
+
+    .actions {
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 24px;
+    }
+
+    .btn {
+        flex: 1 1 calc(50% - 10px);
+        min-width: 140px;
+    }
+
+    .player-seat {
+        padding: 16px;
+        gap: 12px;
+
+        overflow: hidden;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .card-inner,
+    .card-slot {
+        width: clamp(60px, 16vw, 120px);
+        aspect-ratio: 2 / 3;
+    }
+
+    .table-title {
+        font-size: 16px;
+    }
+
+    .selected-label {
+        font-size: 11px;
+    }
+}
+
+/* =====================================
+   PHONE
+===================================== */
+
+@media (max-width: 480px) {
+    .container {
+        padding: 16px 12px;
+        gap: 16px;
+    }
+
+    .header {
+        font-size: 1.25rem;
+        text-align: center;
+    }
+
+    .actions {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+        margin-bottom: 16px;
+    }
+
+    .btn {
+        width: 100%;
+        min-width: unset;
+
+        font-size: 13px;
+        padding: 10px;
+    }
+
+    .btn svg {
+        width: 14px;
+        height: 14px;
+    }
+
+    .player-seat {
+        height: 140px;
+        min-height: 140px;
+        gap: 8px;
+        padding: 12px;
+
+        justify-content: flex-start;
+        overflow: hidden;
+    }
+
+    .card-slot,
+    .card-inner {
+        width: min(120px, calc((100vw - 80px) / 5));
+        aspect-ratio: 2 / 3;
+        height: auto;
+    }
+
+    .card-face {
+        font-size: 12px;
+    }
+
+    .selected-label {
+        font-size: 10px;
+    }
+
+    .selected-label .text {
+        text-align: center;
+        max-width: 72px;
+    }
+
+    .empty-state {
+        padding: 24px 16px;
+    }
+
+    .empty-state h3 {
+        font-size: 16px;
+    }
+
+    .empty-state p {
+        font-size: 14px;
+    }
+
+    .dotted-card {
+        width: min(120px, calc((100vw - 80px) / 5));
+        aspect-ratio: 2 / 3;
+    }
+}
+
+@media (max-width: 360px) {
+    .card-slot,
+    .card-inner {
+        width: min(120px, calc((100vw - 80px) / 5));
+        aspect-ratio: 2 / 3;
+        height: auto;
+    }
+
+    .dotted-card {
+        width: 100%;
+        height: 100%;
+
+        border-width: 2px;
+        border-radius: 8px;
+        font-size: 10px;
+    }
 }
 
 /* ---------- DEAL ANIMATION ---------- */
